@@ -1,10 +1,17 @@
-# 🚀 Automation Test for CRM Operational System
+# Automation Testing Framework (Web + API + E2E)
 
-Automation Test Framework ini dibuat untuk menguji **Web UI dan API** dalam satu repository menggunakan pendekatan **Behavior Driven Development (BDD)** dengan **Cucumber**.
-
-Framework ini mensimulasikan sistem **CRM (Customer Relationship Management)** yang digunakan dalam operasional bisnis sehari-hari.
+Framework ini digunakan untuk automation testing menggunakan:
+- Selenium WebDriver (UI Testing)
+- Cucumber BDD (Scenario-based testing)
+- Rest Assured (API Testing)
+- JUnit 4 (Test Runner)
+- Gradle (Build Tool)
+- Page Object Model (POM)
 
 ---
+
+# 📁 Project Structure
+
 
 # 📌 Table of Contents
 - [Overview](#overview)
@@ -53,24 +60,169 @@ Simulasi CRM meliputi:
 # 📁 Project Structure
 
 ```
-automation-test-crm/
-│── src/test/java/
-│   ├── web/
-│   │   ├── pages/        → Page Object Model
-│   │   ├── steps/        → Step Definitions Web
-│   │   └── runners/      → Test Runner Web
-│   │
-│   ├── api/
-│   │   ├── steps/        → Step Definitions API
-│   │   └── runners/      → Test Runner API
-│   │
-│   └── utils/            → Driver & Utility
-│
-│── src/test/resources/
-│   ├── web/features/     → Gherkin Web
-│   └── api/features/     → Gherkin API
-│
-└── .github/workflows/    → CI/CD Pipeline
+.
+├── build
+│   ├── classes
+│   │   └── java
+│   │       └── test
+│   │           ├── api
+│   │           │   ├── runners
+│   │           │   │   └── ApiTestRunner.class
+│   │           │   └── steps
+│   │           │       ├── CustomerApiSteps.class
+│   │           │       └── UserSteps.class
+│   │           ├── utils
+│   │           │   └── DriverManager.class
+│   │           └── web
+│   │               ├── pages
+│   │               │   ├── CartPage.class
+│   │               │   ├── HomePage.class
+│   │               │   ├── LoginPage.class
+│   │               │   └── ProductPage.class
+│   │               ├── runners
+│   │               │   ├── E2ETestRunner.class
+│   │               │   └── WebTestRunner.class
+│   │               └── steps
+│   │                   ├── E2ESteps.class
+│   │                   ├── Hooks.class
+│   │                   └── LoginSteps.class
+│   ├── generated
+│   │   └── sources
+│   │       ├── annotationProcessor
+│   │       │   └── java
+│   │       │       └── test
+│   │       └── headers
+│   │           └── java
+│   │               └── test
+│   ├── reports
+│   │   ├── cucumber-report.html
+│   │   ├── cucumber.json
+│   │   └── tests
+│   │       ├── apiTest
+│   │       │   ├── classes
+│   │       │   │   └── CRM-User-API.html
+│   │       │   ├── css
+│   │       │   │   ├── base-style.css
+│   │       │   │   └── style.css
+│   │       │   ├── index.html
+│   │       │   ├── js
+│   │       │   │   └── report.js
+│   │       │   └── packages
+│   │       │       └── default-package.html
+│   │       ├── e2eTest
+│   │       │   ├── classes
+│   │       │   │   └── web.runners.E2ETestRunner.html
+│   │       │   ├── css
+│   │       │   │   ├── base-style.css
+│   │       │   │   └── style.css
+│   │       │   ├── index.html
+│   │       │   ├── js
+│   │       │   │   └── report.js
+│   │       │   └── packages
+│   │       │       └── web.runners.html
+│   │       └── webTest
+│   │           ├── classes
+│   │           │   └── Demoblaze-Login.html
+│   │           ├── css
+│   │           │   ├── base-style.css
+│   │           │   └── style.css
+│   │           ├── index.html
+│   │           ├── js
+│   │           │   └── report.js
+│   │           └── packages
+│   │               └── default-package.html
+│   ├── resources
+│   │   └── test
+│   │       ├── api
+│   │       │   └── features
+│   │       │       ├── customer_api.feature
+│   │       │       └── user.feature
+│   │       └── web
+│   │           └── features
+│   │               ├── e2e_customer.feature
+│   │               └── login.feature
+│   ├── test-results
+│   │   ├── apiTest
+│   │   │   ├── TEST-CRM-User-API.xml
+│   │   │   └── binary
+│   │   │       ├── output.bin
+│   │   │       ├── output.bin.idx
+│   │   │       └── results.bin
+│   │   ├── e2eTest
+│   │   │   ├── TEST-web.runners.E2ETestRunner.xml
+│   │   │   └── binary
+│   │   │       ├── output.bin
+│   │   │       ├── output.bin.idx
+│   │   │       └── results.bin
+│   │   └── webTest
+│   │       ├── TEST-Demoblaze-Login.xml
+│   │       └── binary
+│   │           ├── output.bin
+│   │           ├── output.bin.idx
+│   │           └── results.bin
+│   └── tmp
+│       ├── apiTest
+│       ├── compileTestJava
+│       │   └── previous-compilation-data.bin
+│       ├── e2eTest
+│       └── webTest
+├── build.gradle
+├── gradle
+│   └── wrapper
+│       ├── gradle-wrapper.jar
+│       └── gradle-wrapper.properties
+├── gradlew
+├── gradlew.bat
+├── readme.md
+├── reports
+│   ├── api.html
+│   ├── api.json
+│   ├── web.html
+│   └── web.json
+├── settings.gradle
+├── src
+│   ├── main
+│   │   ├── java
+│   │   │   └── sastimauli
+│   │   │       └── demo
+│   │   └── resources
+│   └── test
+│       ├── java
+│       │   ├── api
+│       │   │   ├── runners
+│       │   │   │   └── ApiTestRunner.java
+│       │   │   └── steps
+│       │   │       ├── CustomerApiSteps.java
+│       │   │       └── UserSteps.java
+│       │   ├── utils
+│       │   │   └── DriverManager.java
+│       │   └── web
+│       │       ├── pages
+│       │       │   ├── CartPage.java
+│       │       │   ├── CustomerPage.java
+│       │       │   ├── HomePage.java
+│       │       │   ├── LoginPage.java
+│       │       │   └── ProductPage.java
+│       │       ├── runners
+│       │       │   ├── E2ETestRunner.java
+│       │       │   └── WebTestRunner.java
+│       │       └── steps
+│       │           ├── E2ESteps.java
+│       │           ├── Hooks.java
+│       │           └── LoginSteps.java
+│       └── resources
+│           ├── api
+│           │   └── features
+│           │       ├── customer_api.feature
+│           │       └── user.feature
+│           └── web
+│               └── features
+│                   ├── e2e_customer.feature
+│                   └── login.feature
+└── target
+    └── cucumber-reports
+        ├── e2e-report.html
+        └── e2e-report.json
 ```
 
 ---
@@ -84,6 +236,8 @@ Scenario yang diuji:
 - Login valid
 - Login invalid
 - Navigasi dashboard
+- Add Cart
+- Log Out
 
 ---
 
@@ -105,12 +259,6 @@ app-id: 63a804408eb0cb069b57e43a
 
 # ▶️ How to Run
 
-## 🔹 Clone Repository
-```bash
-git clone <your-repo-url>
-cd automation-test-crm
-```
-
 ## 🔹 Jalankan API Test
 ```bash
 ./gradlew apiTest
@@ -120,19 +268,23 @@ cd automation-test-crm
 ```bash
 ./gradlew webTest
 ```
-
+## 🔹 Jalankan End to End Test
+```bash
+./gradlew e2eTest
 ---
+```
 
 # 🏷 Test Tagging
 
 Framework menggunakan tagging Cucumber:
 
-| Tag | Description |
-|-----|------------|
-| @web | Menjalankan Web UI test |
-| @api | Menjalankan API test |
-
+| Tag  | Description                 |
+|------|-----------------------------|
+| @web | Menjalankan Web UI test     |
+| @api | Menjalankan API test        |
+| @e2e | Menjalankan End To End test |
 ---
+
 
 # 📊 Cucumber Report
 
@@ -182,6 +334,7 @@ File:
 ```
 reports/web.json
 reports/api.json
+reports/cucumber.json
 ```
 
 Berfungsi untuk:
@@ -222,7 +375,10 @@ Report akan otomatis dibuat setelah menjalankan test:
 ```bash
 ./gradlew apiTest
 ```
-
+### End to End Test
+```bash
+./gradlew e2eTest
+```
 ---
 
 # 🤖 CI/CD
@@ -269,3 +425,5 @@ Automation Test Framework ini dibuat untuk keperluan:
 - Pembelajaran QA Automation
 - Technical Assessment
 - Portfolio QA Engineer
+
+Created by : Sasti Mauli

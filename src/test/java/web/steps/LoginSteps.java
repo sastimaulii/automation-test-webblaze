@@ -3,38 +3,55 @@ package web.steps;
 import io.cucumber.java.en.*;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
-import web.pages.LoginPage;
 import utils.DriverManager;
+import web.pages.HomePage;
+import web.pages.LoginPage;
 
 public class LoginSteps {
 
-    WebDriver driver = DriverManager.getDriver();
-    LoginPage loginPage = new LoginPage(driver);
+    WebDriver driver;
+    HomePage homePage;
+    LoginPage loginPage;
 
-    @Given("User is on CRM login page")
+    public LoginSteps() {
+        driver = DriverManager.getDriver();
+        homePage = new HomePage(driver);
+        loginPage = new LoginPage(driver);
+    }
+
+    @Given("User is on login page")
     public void openLoginPage() {
-        loginPage.open();
+        driver.get("https://www.demoblaze.com");
+        homePage.openLoginModal();
     }
 
     @When("User input valid username and password")
     public void loginValid() {
-        loginPage.login("standard_user", "secret_sauce");
+        loginPage.login("sastimaulii", "17ismylife05");
     }
 
     @When("User input invalid username and password")
     public void loginInvalid() {
-        loginPage.login("wrong", "wrong");
+
+        System.out.println("BEFORE LOGIN ACTION");
+
+        loginPage.login("sastimaulii", "wrongpass");
+
+        System.out.println("AFTER LOGIN ACTION");
     }
 
     @Then("User should be redirected to dashboard")
     public void verifySuccess() {
-        Assert.assertTrue(loginPage.isLoginSuccess());
-        driver.quit();
+        Assert.assertTrue(homePage.isUserLoggedIn("sastimaulii"));
     }
 
     @Then("Error message should be displayed")
     public void verifyError() {
-        Assert.assertTrue(loginPage.isErrorDisplayed());
-        driver.quit();
+
+        String alertText = loginPage.getAlertText();
+
+        Assert.assertEquals("Wrong password.", alertText);
+
+        loginPage.acceptAlert();
     }
 }

@@ -24,12 +24,6 @@ dependencies {
     testImplementation 'io.github.bonigarcia:webdrivermanager:5.8.0'
 }
 
-tasks.withType(Test) {
-    useJUnit()
-
-    testClassesDirs = sourceSets.test.output.classesDirs
-    classpath = sourceSets.test.runtimeClasspath
-}
 
 //////////////////////////////////////////////////////
 // ✅ WEB TEST (CUCUMBER WEB)
@@ -60,4 +54,20 @@ task apiTest(type: Test) {
     include '**/ApiTestRunner.class'
 
     systemProperty "cucumber.filter.tags", "@api"
+}
+
+//////////////////////////////////////////////////////
+// ✅ E2E TEST (WEB + API FLOW)
+//////////////////////////////////////////////////////
+task e2eTest(type: Test) {
+    useJUnit()
+
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+
+    // hanya runner E2E
+    include '**/E2ETestRunner.class'
+
+    // tag cucumber
+    systemProperty "cucumber.filter.tags", "@e2e"
 }
