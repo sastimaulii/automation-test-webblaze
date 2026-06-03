@@ -22,22 +22,30 @@ jobs:
         run: chmod +x gradlew
 
       # =====================
+      # Install Chrome
+      # =====================
+      - name: Install Chrome
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+
+      # =====================
       # API TEST
       # =====================
       - name: Run API Test
-        run: ./gradlew clean apiTest
+        run: ./gradlew apiTest
 
       # =====================
       # WEB TEST
       # =====================
       - name: Run Web Test
-        run: ./gradlew clean webTest
+        run: ./gradlew webTest
 
       # =====================
-      # E2E TEST (NEW)
+      # E2E TEST
       # =====================
       - name: Run E2E Test
-        run: ./gradlew clean e2eTest
+        run: ./gradlew e2eTest --info
 
       # =====================
       # UPLOAD REPORT
