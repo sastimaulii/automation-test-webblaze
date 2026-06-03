@@ -1,4 +1,4 @@
-name: Automation Test CRM
+name: Automation Test
 
 on:
   workflow_dispatch:
@@ -18,14 +18,32 @@ jobs:
           distribution: temurin
           java-version: 17
 
+      - name: Grant permission for Gradle
+        run: chmod +x gradlew
+
+      # =====================
+      # API TEST
+      # =====================
       - name: Run API Test
-        run: ./gradlew apiTest
+        run: ./gradlew clean apiTest
 
+      # =====================
+      # WEB TEST
+      # =====================
       - name: Run Web Test
-        run: ./gradlew webTest
+        run: ./gradlew clean webTest
 
+      # =====================
+      # E2E TEST (NEW)
+      # =====================
+      - name: Run E2E Test
+        run: ./gradlew clean e2eTest
+
+      # =====================
+      # UPLOAD REPORT
+      # =====================
       - name: Upload Cucumber Report
         uses: actions/upload-artifact@v4
         with:
           name: cucumber-report
-          path: reports/
+          path: build/reports/
