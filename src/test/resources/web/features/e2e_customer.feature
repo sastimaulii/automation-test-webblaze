@@ -1,3 +1,4 @@
+@e2e
 Feature: End to End DemoBlaze
 
   @e2e-positive
