@@ -1,3 +1,4 @@
+@api
 Feature: Customer API Testing
 
   Background:
