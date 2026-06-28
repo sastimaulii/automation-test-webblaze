@@ -14,8 +14,7 @@ import io.cucumber.junit.CucumberOptions;
                 "html:build/reports/cucumber-report.html",
                 "json:build/reports/cucumber.json"
         },
-        monochrome = true,
-        publish = true
+        monochrome = true
 )
 public class E2ETestRunner {
 }

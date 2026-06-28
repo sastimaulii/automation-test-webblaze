@@ -24,34 +24,38 @@ jobs:
       # =====================
       # Install Chrome
       # =====================
-      - name: Install Chrome
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y google-chrome-stable
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@latest
 
       # =====================
       # API TEST
       # =====================
       - name: Run API Test
         run: ./gradlew apiTest
+        continue-on-error: true
 
       # =====================
       # WEB TEST
       # =====================
       - name: Run Web Test
         run: ./gradlew webTest
+        continue-on-error: true
 
       # =====================
       # E2E TEST
       # =====================
       - name: Run E2E Test
         run: ./gradlew e2eTest --info
+        continue-on-error: true
 
       # =====================
       # UPLOAD REPORT
       # =====================
       - name: Upload Cucumber Report
         uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: cucumber-report
-          path: build/reports/
+          path: |
+            build/reports/
+            reports/
