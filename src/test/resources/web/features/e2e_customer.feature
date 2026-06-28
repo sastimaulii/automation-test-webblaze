@@ -8,9 +8,9 @@ Feature: End to End DemoBlaze
     And User input valid credentials
     Then User should be logged in
 
-    When User add product "Samsung galaxy s6" to cart
-    And User go to cart page
-    Then Product should be displayed in cart
+    When User select product "Samsung galaxy s6"
+And User click Add to cart
+Then Product should be added to cart
 
     When User click logout button
     Then User should be logged out
